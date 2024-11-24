@@ -193,4 +193,28 @@ Create a log file where the script writes the success or failure of each backup 
 Cleanup: 
 If the backup was successful, remove any backups older than 7 days in the destination directory. 
 
- 
+ # THE SCRIPT NAME IS new.sh 
+
+ Input Validation:
+The script starts by validating the arguments. It ensures that at least two arguments (source and destination paths) are provided and no more than three, including an optional compression flag. If the arguments are invalid, the script terminates with an error message.
+
+Source Existence Check:
+The script verifies that the source file or directory exists. If the source is missing, it notifies the user and stops further execution to prevent errors.
+
+Destination Directory Setup:
+It checks if the destination directory exists. If not, the script automatically creates the directory, including any necessary parent directories, to ensure the backup can be stored.
+
+Backup Creation:
+
+If the optional compression flag is not provided, the script compresses the source file or directory into a .tar.gz archive. The archive is saved in the destination directory with a name based on the source file and the current date.
+If the compression flag is set, the script copies the source file or directory recursively to the destination without compression.
+Logging:
+Every backup operation is logged in a file named log.txt. The log entry includes the source path, destination path, and the success or failure status of the operation, allowing for easy tracking and troubleshooting.
+
+Cleanup Process:
+After the backup is created, the script performs a cleanup operation in the destination directory. It identifies and deletes any files or directories that are older than 7 days, ensuring the storage is maintained efficiently and old backups do not accumulate unnecessarily.
+
+Error Handling:
+The script gracefully handles errors, such as invalid arguments, missing source paths, or failures during the backup process, providing meaningful feedback to the user.
+
+
