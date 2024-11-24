@@ -99,32 +99,36 @@ THE WORKFLOW OF THE ABOVE SCRIPT IS :--
 
 * "wget -q -O - https://pkg.jenkins.io/jenkins.io.key"->
 
- # Downloads the GPG key for the Jenkins repository.
+Downloads the GPG key for the Jenkins repository.
  #This key is used to verify the authenticity of the packages from the repository.
 
 * "sudo tee /etc/apt/trusted.gpg.d/jenkins.asc"->
 
-   # Adds the downloaded GPG key to the trusted keys directory for APT (/etc/apt/trusted.gpg.d).
-   # This ensures that the packages from the Jenkins repository are trusted by your system.
+   1. Adds the downloaded GPG key to the trusted keys directory for APT (/etc/apt/trusted.gpg.d).
+   2. This ensures that the packages from the Jenkins repository are trusted by your system.
 
 * "echo "deb http://pkg.jenkins.io/debian/ stable main"->
 
-    # Specifies the Jenkins APT repository as a package source.
-    # The URL http://pkg.jenkins.io/debian/ is the location of the Jenkins package files.
-    # The stable main section indicates you're using the stable release of Jenkins.
+    1.Specifies the Jenkins APT repository as a package source.
+    2.The URL http://pkg.jenkins.io/debian/ is the location of the Jenkins package files.
+    3.The stable main section indicates you're using the stable release of Jenkins.
 * "sudo tee /etc/apt/sources.list.d/jenkins.list " ->
 
-   # Saves the repository information (deb ...) to a file named jenkins.list in the APT sources directory (/etc/apt/sources.list.d).
-   # This makes the Jenkins repository available for package management with apt.
+   1.Saves the repository information (deb ...) to a file named jenkins.list in the APT sources directory (/etc/apt/sources.list.d).
+   2.This makes the Jenkins repository available for package management with apt.
 
 ** "sudo apt install -y jenkins"-> 
    
-   # This command is used for setting up the installation of the jenkins on the system .
-   # after this the jenkins is successfully installed in the system of the  ubuntu .
+   1.This command is used for setting up the installation of the jenkins on the system .
+   2.after this the jenkins is successfully installed in the system of the  ubuntu .
 
 THE COMMANDS FOR THE UBUNTU IS NOW COMPLETE THEN THERE ARE THE COMMANDS FOR THE "centos"|"rhel"|"fedora"  . THEN COMMANDS WILL RUN FROM THE TOP TO BOTTOM FOR THE FOLLOWING TO SAME LIKE THE UBUNTU . AS THERE ARE MANY OPERATING SYSTEM LIKE WINDOWS , MACos, etc . THE SAME OPTIONS WILL DEFINED FOR THE THEM TO . THE SCRIPT IS NOT FULLY OS INDEPENDENT BUT PARTIALLY .
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#INSTALL JAVA FUNCTION 
+
+
+#INSTALL JAVA FUNCTION
+
+
 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 * The second function is install_java which will install jdk for the follwing OS dependency same like installing jenkins functions . In scripting defining the function at the  start is important . As jenkins needs jdk11 version as the minimum requirement to run . Proving the user a option for installing there desired version .
 
