@@ -8,12 +8,11 @@ Q1 . write shell script to install jenkins
 
 SCRIPT :+1:  
 **************************************************************************************************************************
-
 #!/bin/bash
 
 #install Jenkins
 function install_jenkins {
-  # Update reps
+  #Update reps
   case "$OS" in
     "ubuntu"|"debian")
       sudo apt update -y
@@ -41,7 +40,7 @@ function install_jenkins {
   esac
 }
 
-#ins Java
+#install Java
 function install_java {
   case "$OS" in
     "ubuntu"|"debian")
@@ -61,7 +60,7 @@ function install_java {
   esac
 }
 
-# Check if provided argument
+#Check if provided argument
 if [ $# -eq 0 ]; then
 	echo "Specify java version and try egain"
 	exit 1
@@ -73,7 +72,7 @@ if [[ -z "$JAVA_VERSION" ]]; then
   echo "Java version must be specified."
 fi
 
-# get os
+#get os
 if [ -f /etc/os-release ]; then
   source /etc/os-release
   OS=$(echo $ID | tr '[:upper:]' '[:lower:]')
@@ -82,9 +81,9 @@ else
   exit 1
 fi
 
-
 install_java
 install_jenkins
+
 
 
 ************************************************************************************************************************
