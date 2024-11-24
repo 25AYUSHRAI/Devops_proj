@@ -1,6 +1,7 @@
 This is the project for the devops that contains the following question to solved .
  
-Q1 . write shell script to install jenkins 
+ # Q1 .
+write shell script to install jenkins 
 
 -Idependent of Operating System dependency 
 
@@ -67,3 +68,129 @@ then there is a condition to find the OS of the system . on which is going to be
  the function is called in the order first the java is installed where then intall jenkins function is called . which will automatically install the java and jenkins in the system .
 On running the script on the system it will automatically install the java and jenkins on the system 
 
+# Q2 . 
+Setup Master-slave architecture 
+It should be capable of executing 5 tasks at a time 
+# Master Slave
+ Steps to Set Up a Master-Slave Configuration in Jenkins Using the GUI (Slave in AWS VPC):
+ 
+Step 1: Set Up the Jenkins Master
+Install the Required Plugins:
+Go to Manage Jenkins > Manage Plugins.
+In the Available Plugins tab, search for and install the "SSH Build Agents" plugin.
+Generate an SSH Key on the Master:Step 2: Prepare the AWS Slave
+Launch an EC2 instance in the AWS VPC with an Amazon Linux or Ubuntu AMI.
+Ensure the security group allows SSH access from the Jenkins master.
+Install Java on the EC2 instance (matching the Jenkins master version).
+Add the Jenkins master's public SSH key to the EC2 instance's authorized keys for passwordless access.
+
+Generate an SSH key pair on the Jenkins server:
+bash
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/jenkins_slave_key
+Save the private key for later. Copy the public key to use on the AWS slave instance.
+
+Step 2: Prepare the AWS Slave
+Launch an EC2 instance in the AWS VPC with an Amazon Linux or Ubuntu AMI.
+Ensure the security group allows SSH access from the Jenkins master.
+Install Java on the EC2 instance (matching the Jenkins master version).
+Add the Jenkins master's public SSH key to the EC2 instance's authorized keys for passwordless access.
+
+Step 3: Add the Slave in the Jenkins GUI
+Access the Jenkins Dashboard:
+
+Log in to Jenkins and navigate to the main dashboard.
+Add a New Node:
+
+Go to Manage Jenkins > Manage Nodes and Clouds > New Node.
+Provide a Node Name (e.g., AWS-Slave) and select Permanent Agent.
+Click OK.
+Configure the Node:
+
+Fill in the following details:
+Remote Root Directory: /home/ec2-user/jenkins_slave (or another directory on the AWS slave).
+Labels: Add labels like aws or slave for job assignment.
+Usage: Choose Use this node as much as possible or Only build jobs with label expressions.
+Launch Method:
+
+Select Launch agents via SSH.
+Provide the following:
+Host: Public or private IP address of the AWS instance.
+Credentials:
+Click Add > Jenkins.
+Select SSH Username with Private Key.
+Enter:
+Username: ec2-user (or the appropriate user for the AWS instance).
+Private Key: Paste the private key generated on the master (~/.ssh/jenkins_slave_key).
+Save Configuration:
+
+Save the node configuration.
+
+Step 4: Verify the Slave Connection
+Check Node Status:
+
+Go to Manage Nodes and Clouds.
+Ensure the status of the new node is Online.
+Test Job Execution:
+
+Create a new job or edit an existing one.
+Under the Build Environment section, set the Restrict where this project can be run option and use the label assigned to the slave (e.g., aws).
+
+Step 5: Security Best Practices
+Restrict Network access ,
+
+Use a private IP address or VPN for communication between master and slave.
+Limit the security group rules to allow only Jenkins master to connect to the slave.
+Secure Jenkins with HTTPS:
+
+Configure SSL for Jenkins to ensure secure communication.
+This process sets up a Jenkins slave running in an AWS VPC entirely through the Jenkins GUI.
+
+# Q3
+Setup Role based authorization 
+**************************************************************************************************
+
+# Q4
+ Create a pipeline to execute a shell script 
+
+* on git 
+
+* on scripting task 
+
+* Monitor disk utlization and send mail if > 80% 
+
+* Process Management
+
+**********************************************************************************************************
+
+
+# Q5 
+create another shell script that automates the backup of important files and directories to a backup location. The script should: 
+
+Take inputs: 
+
+The source directory (which files and directories to back up). 
+
+The destination directory (where the backup should be saved). 
+
+An optional flag for compressing the backup into a .tar.gz file. 
+
+Check for errors: 
+
+Ensure that the source directory exists. 
+
+Ensure that the destination directory exists (if it doesn't, the script should create it). 
+
+Backup process: 
+
+If the compress flag is provided, the backup should be a compressed .tar.gz archive. 
+
+If the compress flag is not provided, the script should simply copy the files to the destination directory. 
+
+Logging: 
+
+Create a log file where the script writes the success or failure of each backup operation, along with a timestamp. 
+
+Cleanup: 
+If the backup was successful, remove any backups older than 7 days in the destination directory. 
+
+ 
