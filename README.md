@@ -12,7 +12,7 @@ SCRIPT :+1:
 
 #install Jenkins
 function install_jenkins {
-  #Update reps
+  #Update reps 
   case "$OS" in
     "ubuntu"|"debian")
       sudo apt update -y
