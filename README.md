@@ -8,12 +8,11 @@ Q1 . write shell script to install jenkins
 
 SCRIPT :+1:  
 **************************************************************************************************************************
-The file name ./jenkins_install.sh 
+The file name ./jenkins_inst.sh 
 ************************************************************************************************************************
-THE WORKFLOW OF THE ABOVE SCRIPT IS :--
+THE WORKFLOW OF THE JENKINS ISNTALL SCRIPT IS :--
+# INSTALL JENKINS FUNCTION
 
-#INSTALL JENKINS FUNCTION
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 * The script start with the first function name install_jenkins . Which get the input of the Operating System as the input . According to the input of the variable name OS case are defined . The cases contains the commands lines for the each of the OS . Starting with the  ubuntu or debian . Which has all the commands stating from :--
 *  "sudo apt update -y" ->which updates the system .
  
@@ -45,13 +44,9 @@ Downloads the GPG key for the Jenkins repository.
    2.after this the jenkins is successfully installed in the system of the  ubuntu .
 
 THE COMMANDS FOR THE UBUNTU IS NOW COMPLETE THEN THERE ARE THE COMMANDS FOR THE "centos"|"rhel"|"fedora"  . THEN COMMANDS WILL RUN FROM THE TOP TO BOTTOM FOR THE FOLLOWING TO SAME LIKE THE UBUNTU . AS THERE ARE MANY OPERATING SYSTEM LIKE WINDOWS , MACos, etc . THE SAME OPTIONS WILL DEFINED FOR THE THEM TO . THE SCRIPT IS NOT FULLY OS INDEPENDENT BUT PARTIALLY .
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+# INSTALL JAVA FUNCTION
 
-#INSTALL JAVA FUNCTION
-
-
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 * The second function is install_java which will install jdk for the follwing OS dependency same like installing jenkins functions . In scripting defining the function at the  start is important . As jenkins needs jdk11 version as the minimum requirement to run . Proving the user a option for installing there desired version .
 
 *A variable name JAVA_VERSION which will get the version as the input . the function is defined with cases for OS dependency name ubuntu 0or debian the following code will run ->
@@ -60,86 +55,15 @@ THE COMMANDS FOR THE UBUNTU IS NOW COMPLETE THEN THERE ARE THE COMMANDS FOR THE 
       
   *" sudo apt install -y openjdk-"$JAVA_VERSION"-jdk " -> this command is used for installing jdk with the desired java version 
                                                           "$JAVA_VERSION" which uses the input value of the java version .
-** THERE ARE TWO MORE IF CONDITIONS THAT CHECKS WHETHER 
+** THERE ARE TWO MORE IF CONDITIONS THAT CHECKS INPUT IS  GIVEN BY THE USER OR NOT WHERE AS THE OTHER CHECK WHEHTER THE JAVA_VERSION IS TAKEN AS THE INPUT OR NOT .
 
 
 
+# GET OS 
 
+then there is a condition to find the OS of the system . on which is going to be installed .
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#!/bin/bash
-
-#find files/directories with modify time(mtime) > 7 days and perform action delete
-# $1 is path to directory to cleanup
-function cleanup {
-    find "$1" -mtime +7 -delete
-}
-
-#get source_path, des_path, exit staus of transfer(0 if success 1 if fail) then append into the /log.txt file
-function log {
-    echo "src: $1; des: $2; exit: $3 " >> /log.txt
-}
-
-#chk if atleast 2 args passed and not more than 3 passed
-# $# returns number of args passed
-if [ $# -ge 1 ] && [ $# -le 3 ]; then
-    # Check if source exists
-    if ! [ -e "$1" ]; then
-        echo "file: $1 does not exist"
-        exit 1
-    fi
-    
-    # set des file name; basename returns the last file name from the path string,  Ex: file1_22Nov2024
-    # set destination file path in path variable
-    bfile_name=$( basename "$1" )_$( date +"%d%b%Y" )
-    path="$2/$bfile_name"
-
-    # Make destination directory if not exist; use -p to make parent dir if needed and not throw errors
-    mkdir -p "$2"
-
-    # Compress and save to destination and exit with success status
-    if [ "$3" != "1" ]; then
-        # tar [options] [destination] [source]
-        tar -czf "$path.tar.gz" "$1"
-        log "$1" "$path" $?
-        cleanup "$2"
-        exit 0
-    fi
-
-    # Copy recursively files from source to destination
-    cp -r "$1" "$path"
-    log "$1" "$path" $?
-    cleanup "$2"
-    exit 0
-
-#if invalid arguments passed
-else
-    echo "0 or too many arguments passed"
-    exit 1
-fi
-
-*********************************************************************************************************************
+# FUNCTION IS CALLED 
+ the function is called in the order first the java is installed where then intall jenkins function is called . which will automatically install the java and jenkins in the system .
+On running the script on the system it will automatically install the java and jenkins on the system 
 
