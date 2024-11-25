@@ -218,3 +218,100 @@ Error Handling:
 The script gracefully handles errors, such as invalid arguments, missing source paths, or failures during the backup process, providing meaningful feedback to the user.
 
 
+# Q6 
+ Build Java app and trigger pipeline using different methods 
+
+- Polling 
+
+- if there is a code commit and in that case will get executed 
+
+- Ensure that if pipeline is running for more than a minute it should fail. 
+
+- Publish artifacts. 
+
+- Use concept of Parameters to execute different branch 
+
+ 
+********************************************************************************************************************
+pipeline {   
+    agent any 
+    tools{
+        jdk 'jdk11'
+        maven 'maven3'
+    }
+    
+    options {
+        timeout(time: 5, unit: 'MINUTES') //  for timeout 
+    }
+
+   
+    parameters {
+        string(name: 'BRANCH', defaultValue: 'main', description: 'Branch to build')
+    }
+
+    stages {
+        stage('Git Checkout') {
+            steps {
+               
+                git branch: "${params.BRANCH}", 
+                url: 'https://github.com/jaiswaladi246/springboot-java-poject.git'
+            }
+        }
+        
+        stage('Compile') {
+            steps {
+                sh "mvn compile"
+                 }
+        }
+        
+        stage('Package') {
+            steps {
+                sh "mvn clean package"
+                
+                 }
+        }
+        stage('Publish Artifacts') {
+            steps {
+                echo "Publishing artifacts..."
+                archiveArtifacts artifacts: '*/target/.jar', allowEmptyArchive: true
+            }
+        }
+        
+         
+    }     
+    post {
+        success {
+            echo "Pipeline completed successfully for branch ${params.BRANCH}"
+        }
+        failure {
+            echo "Pipeline failed for branch ${params.BRANCH}"
+        }
+    }
+}
+
+*********************************************************************************************************************
+Step 1:-> Setup Tools
+        Configure JDK 11 and Maven 3 for the pipeline.
+
+Step 2-> Set Timeout
+         Limit pipeline runtime to 5 minutes.
+
+Step 3-> Add Parameter
+         Accept BRANCH parameter with default value main.
+
+Step 4-> Git Checkout
+         Clone the specified branch from the GitHub repository.
+
+Step 5-> Compile
+         Run the Maven compile goal to build the project.
+
+Step 6-> Package
+         Execute mvn clean package to create the JAR file.
+
+Step 7-> Publish Artifacts
+         Archive the JAR file located in */target.
+
+Step 8-> Post-Execution Actions
+         Log success or failure messages based on the pipeline result.
+
+**************************************************************************************************************************
